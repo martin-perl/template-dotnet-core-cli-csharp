@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Threading.Tasks;
 
-namespace dotnetcore
+namespace com.test.header
 {
     class Program
     {
-        static void Main(string[] args)
-        {
+        static async Task Main(string[] args) {
             Console.WriteLine("Hello World!");
+            HttpGet httpGet = new HttpGet();
+            await httpGet.Get();
         }
     }
 }
