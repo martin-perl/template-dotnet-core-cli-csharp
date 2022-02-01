@@ -7,8 +7,9 @@ namespace com.test.header
 {
     class Program
     {
-        static async Task Main(string[] args) {
-            Console.WriteLine("Hello World!");
+        static async Task Main(string[] args)
+        {
+            Console.WriteLine("Hallo Welt!");
 
             // Instantiate the delegate.
             GetData dataDelegate = Data.AddDelegateMethod;
