@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using com.test.delegates;
 using com.test.implementations;
+using Microsoft.Extensions.Logging;
 
 namespace com.test.header
 {
@@ -9,6 +10,22 @@ namespace com.test.header
     {
         static async Task Main(string[] args)
         {
+            using ILoggerFactory loggerFactory =
+                LoggerFactory.Create(builder =>
+                    builder.AddSimpleConsole(options =>
+                    {
+                        options.IncludeScopes = true;
+                        options.SingleLine = true;
+                        options.TimestampFormat = "hh:mm:ss ";
+                    }));
+
+            ILogger<Program> logger = loggerFactory.CreateLogger<Program>();
+            using (logger.BeginScope("[scope is enabled]"))
+            {
+                logger.LogInformation("Hello World!");
+                logger.LogInformation("Logs contain timestamp and log level.");
+                logger.LogInformation("Each log message is fit in a single line.");
+            }
             Console.WriteLine("Hallo Welt!");
 
             // Instantiate the delegate.
@@ -22,8 +39,8 @@ namespace com.test.header
             // Call the delegate.
             Console.WriteLine(dataDelegate(1, 2));
 
-            //HttpGet httpGet = new HttpGet();
-            //await httpGet.Get();
+            HttpGet httpGet = new HttpGet();
+            await httpGet.Get();
         }
     }
 }
